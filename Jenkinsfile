@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('SCM Checkout'){
             steps {
-            git branch: 'main', url: 'https://github.com/jbackia19/fullstackmicroservices.git'
+            git branch: 'main', url: 'https://github.com/jbackia19/july4stack.git'
             sh 'ls'
             }
         }
@@ -63,7 +63,7 @@ pipeline {
                                     -D sonar.inclusions=index.py \
                                     -D sonar.sourceEncoding=UTF-8 \
                                     -D sonar.language=python \
-                                    -D sonar.host.url=http://3.110.164.104:9000/"""
+                                    -D sonar.host.url=http://13.234.19.204:9000//"""
                                 }
                             }
                         }
@@ -142,7 +142,8 @@ pipeline {
                     'deploy on k8s': {
                         script {
                             withKubeCredentials(kubectlCredentials: [[ credentialsId: 'kubernetes', namespace: 'ms' ]]) {
-                                 sh 'kubectl get ns'
+                                 sh 'kubectl get namespace'
+                                 sh 'kubectl create namespace ms'
                                 sh 'kubectl apply -f kubernetes/yamlfile'
                             }
                         }
